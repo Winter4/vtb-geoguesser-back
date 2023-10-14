@@ -7,7 +7,7 @@
     "dev": "npx nodemon source/app.ts | pino-pretty --translateTime",
     "dev:up": "docker compose -f docker/docker-compose.yml up -d --remove-orphans",
     "dev:down": "docker compose -f docker/docker-compose.yml down",
-    "dev:db:migrate": "npx prisma migrate dev",
+    "db:migrate": "npx prisma migrate dev",
     "prepare": "husky install"
   },
   "prisma": {

@@ -6,3 +6,114 @@ datasource db {
   url      = env("DB_URL")
   provider = "postgresql"
 }
+
+model WorkTime {
+  weekDay  Int
+  fromHour Int
+  fromMins Int
+  tillHour Int
+  tillMins Int
+
+  Office   Office @relation(fields: [officeId], references: [id])
+  officeId String
+  ATM      ATM    @relation(fields: [atmId], references: [id])
+  atmId    String
+
+  @@id([officeId, atmId, weekDay])
+}
+
+model Inclusion {
+  id   String @id @default(uuid())
+  name String
+
+  officesInclusions OfficeInclusion[]
+  atmInclusions     ATMInclusion[]
+}
+
+model OfficeInclusion {
+  id String @id @default(uuid())
+
+  officeId    String
+  office      Office    @relation(fields: [officeId], references: [id])
+  inclusionId String
+  inclusion   Inclusion @relation(fields: [inclusionId], references: [id])
+}
+
+model ATMInclusion {
+  id String @id @default(uuid())
+
+  atmId       String
+  atm         ATM       @relation(fields: [atmId], references: [id])
+  inclusionId String
+  inclusion   Inclusion @relation(fields: [inclusionId], references: [id])
+}
+
+model Service {
+  id   String @id @default(uuid())
+  name String
+
+  officesServices OfficeService[]
+  atmServices     ATMService[]
+  Queue           Queue[]
+}
+
+model OfficeService {
+  id String @id @default(uuid())
+
+  officeId  String
+  office    Office  @relation(fields: [officeId], references: [id])
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+}
+
+model ATMService {
+  id String @id @default(uuid())
+
+  atmId     String
+  atm       ATM     @relation(fields: [atmId], references: [id])
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+}
+
+model Office {
+  id String @id @default(uuid())
+
+  latitude     Decimal
+  longitude    Decimal
+  name         String
+  address      String
+  metroStation String
+  openTime     WorkTime[]
+  services     OfficeService[]
+  inclusions   OfficeInclusion[]
+}
+
+model ATM {
+  id String @id @default(uuid())
+
+  latitude     Decimal
+  longitude    Decimal
+  name         String
+  address      String
+  metroStation String
+  openTime     WorkTime[]
+  services     ATMService[]
+  inclusions   ATMInclusion[]
+}
+
+enum TicketStatus {
+  PENDING
+  FINISHED
+}
+
+model Queue {
+  id String @id @default(uuid())
+
+  serviceId String
+  service   Service      @relation(fields: [serviceId], references: [id])
+  ticket    String
+  status    TicketStatus @default(PENDING)
+
+  finishedAt DateTime?
+  createdAt  DateTime  @default(now())
+}
