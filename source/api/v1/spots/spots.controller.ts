@@ -7,11 +7,7 @@ export default {
   get: async function (req: Request, res: Response) {
     const result = await db.$queryRaw`--sql
       SELECT 
-        o.*, 
-        os."serviceId" as serviceId,
-        s.name,
-        oi."inclusionId" as inclusionId,
-        i.name,
+        o.*,
         jsonb_agg(jsonb_build_object('id', "serviceId", 'name', "s"."name")) as services, 
         jsonb_agg(jsonb_build_object('id', "inclusionId", 'name', "i"."name")) as inclusions 
 
