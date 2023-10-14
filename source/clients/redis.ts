@@ -1,4 +1,4 @@
-import { Redis as RedisClient } from "ioredis";
+import {Redis as RedisClient} from "ioredis";
 import config from "config";
 
 export default class Redis {

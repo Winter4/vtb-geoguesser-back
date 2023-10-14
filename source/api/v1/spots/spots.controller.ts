@@ -1,5 +1,5 @@
 import Database from "@src/clients/database";
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 
 const db = Database.instance;
 
@@ -41,6 +41,6 @@ export default {
       GROUP BY "atm"."id", "atms"."serviceId", "s"."name", "atmi"."inclusionId", "i"."name";
     `;
 
-    res.json({ data: result });
+    res.json({data: result});
   },
 };

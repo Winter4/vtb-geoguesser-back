@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import {Request, Response, NextFunction} from "express";
 import pinoHttp from "pino-http";
 import Logger from "./clients/logger";
-import { ZodError } from "zod";
+import {ZodError} from "zod";
 
 const logger = Logger.instance;
 const expressLogger = pinoHttp({
@@ -24,10 +24,10 @@ function errorHandler(err: Error, req: Request, res: Response, next: NextFunctio
   req.log.error(err);
 
   if (err instanceof ZodError) {
-    res.status(404).json({ message: "Invalid data" });
+    res.status(404).json({message: "Invalid data"});
   }
 
-  res.status(500).json({ message: "Internal server error" });
+  res.status(500).json({message: "Internal server error"});
 }
 
 export function postMiddlewares() {
