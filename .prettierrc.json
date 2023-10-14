@@ -1,1 +1,6 @@
-{ "printWidth": 90, "tabWidth": 2 }
+{
+  "printWidth": 90,
+  "tabWidth": 2,
+  "bracketSpacing": false,
+  "spaceBeforeFunctionParen": false
+}
