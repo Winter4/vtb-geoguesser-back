@@ -31,21 +31,21 @@ model Inclusion {
 }
 
 model OfficeInclusion {
-  id String @id @default(uuid())
-
   officeId    String
   office      Office    @relation(fields: [officeId], references: [id])
   inclusionId String
   inclusion   Inclusion @relation(fields: [inclusionId], references: [id])
+
+  @@id([officeId, inclusionId])
 }
 
 model ATMInclusion {
-  id String @id @default(uuid())
-
   atmId       String
   atm         ATM       @relation(fields: [atmId], references: [id])
   inclusionId String
   inclusion   Inclusion @relation(fields: [inclusionId], references: [id])
+
+  @@id([atmId, inclusionId])
 }
 
 model Service {
@@ -54,25 +54,25 @@ model Service {
 
   officesServices OfficeService[]
   atmServices     ATMService[]
-  Queue           Queue[]
+  tickets         Ticket[]
 }
 
 model OfficeService {
-  id String @id @default(uuid())
-
   officeId  String
   office    Office  @relation(fields: [officeId], references: [id])
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id])
+
+  @@id([officeId, serviceId])
 }
 
 model ATMService {
-  id String @id @default(uuid())
-
   atmId     String
   atm       ATM     @relation(fields: [atmId], references: [id])
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id])
+
+  @@id([atmId, serviceId])
 }
 
 model Office {
@@ -106,7 +106,7 @@ enum TicketStatus {
   FINISHED
 }
 
-model Queue {
+model Ticket {
   id String @id @default(uuid())
 
   serviceId String
