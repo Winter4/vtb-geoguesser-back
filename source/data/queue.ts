@@ -1,10 +1,11 @@
 import Database from "@src/clients/database";
 import {Queue, TicketStatus, TicketOwner} from "@prisma/client";
+import {uuid} from "@src/types";
 
 const db = Database.instance;
 
 export default {
-  in: async function (id: string | null = null) {
+  in: async function (id: uuid | null = null) {
     const filter: {
       status: TicketStatus;
       owner: TicketOwner;
