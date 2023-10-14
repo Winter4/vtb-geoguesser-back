@@ -82,7 +82,7 @@ model Office {
   longitude    Decimal
   name         String
   address      String
-  metroStation String
+  metroStation String?
   openTime     WorkTime[]
   services     OfficeService[]
   inclusions   OfficeInclusion[]
@@ -95,7 +95,7 @@ model ATM {
   longitude    Decimal
   name         String
   address      String
-  metroStation String
+  metroStation String?
   openTime     WorkTime[]
   services     ATMService[]
   inclusions   ATMInclusion[]
